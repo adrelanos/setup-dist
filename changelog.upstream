@@ -1,3 +1,9 @@
+commit 5f5ccd2e20efd85926a76c86118cd9ba1424e5a6
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Sat Mar 28 09:53:29 2026 +0000
+
+    bumped changelog version
+
 commit a1c8ce9293b2c2c5acf469e54c07bcab6e0a50ce
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Sat Mar 28 05:30:48 2026 -0400
@@ -39,7 +45,7 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Fri Dec 26 07:30:29 2025 -0500
 
     remove Tor enable/disable TUI (terminal user interface) feature
-    
+
     https://forums.whonix.org/t/whonix-18-cli-setup-dist-fails-due-to-missing-anon-connection-wizard/22607
 
 commit ef8c787cdeef298d1ef71d20831e9742f38bfa29
@@ -324,7 +330,7 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Mon Oct 28 02:30:16 2024 -0400
 
     renamed: usr/sbin/setup-dist -> usr/bin/setup-dist
-    
+
     because no longer running as root
 
 commit b5ad6aba72bb51b31e6330edad67f29e1f8b62e4
@@ -380,7 +386,7 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Wed Sep 4 09:41:24 2024 -0400
 
     code simplification
-    
+
     https://forums.whonix.org/t/connect-to-public-tor-network-by-default-avoid-anon-connection-wizard-acw-popup-at-first-boot/17848
 
 commit ff5865a7289800fb61c8bbc3805e8a1d8b12998d
@@ -556,7 +562,7 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Sat Nov 11 13:41:29 2023 -0500
 
     change license to AGPL-3+
-    
+
     https://forums.whonix.org/t/license-change-to-agplv3/17455
 
 commit 79168c7766dac165d9fa0f5d4d3287a5848b4eef
@@ -662,7 +668,7 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Mon Aug 28 10:52:30 2023 -0400
 
     Merge pull request #1 from nyxnor/master
-    
+
     support being sourced by zsh
 
 commit 1c7ecc2d6f9c7000b5095c2e4eef00ade8da523e
@@ -1108,7 +1114,7 @@ Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Sun Feb 7 04:38:02 2021 -0500
 
     renamed:    easyorca -> eorca
-    
+
     To avoid y vs z on English vs German and other keyboard layouts.
 
 commit 12db477b608479b768a1f616171064bdb740dbc5
@@ -1236,7 +1242,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Feb 5 00:25:57 2021 -0500
 
     avoid dependency on tor-control-panel
-    
+
     so it doesn't get installed on the workstation
 
 commit f76c56f3cae05da6bfc210b075f7fc30bdb8d50e
@@ -1521,9 +1527,9 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Jun 28 10:23:22 2019 +0000
 
     fix Qubes integration
-    
+
     Thanks to @marmarek for the bug report!
-    
+
     https://www.whonix.org/pipermail/whonix-devel/2019-June/001397.html
 
 commit 4797537502104fc563371389b744f375d5a45e11
@@ -1681,7 +1687,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Mar 8 12:49:57 2019 +0000
 
     Revert "disable disclaimer"
-    
+
     This reverts commit 99ebcc2ac3abc2a49815984331abc943d1d7717d.
 
 commit 60779a857296c7ccae9db04ff43a170577012c98
@@ -1689,18 +1695,18 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Mar 1 14:32:44 2019 +0000
 
     add improved legal protections clauses
-    
+
     The license for software created by Whonix is the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version with additional terms applicable per GNU GPL version 3 section 7.
-    
+
     The additional terms are based on the Doom 3 license which is Debian refers to as `GPL-3+-with-id-software-additional-terms`, which is Debian DFSG [1] (The Debian Free Software Guidelines) approved and which is therefore suitable for Debian `main`. Whonix made applied minimal changes to it:
-    
+
     * Rewrite `The Doom 3 BFG Edition GPL Source Code` to the more common `this program` which is used throughout the GPL.
     * Added a "trump clause" [2], in other words, any conflicts or disputes between the additional terms and the GPLv3 shall be resolved in favor of the GPLv3 by adding `Notwithstanding any other provision of this License` (as mentioned in GPL FAQ [3]) at the beginning of the additional terms.
-    
+
     [1] https://www.debian.org/social_contract#guidelines
     [2] https://www.fsf.org/news/canonical-updated-licensing-terms
     [3] https://www.gnu.org/licenses/gpl-faq.html#v3Notwithstanding
-    
+
     For more considerations, see also:
     https://www.whonix.org/wiki/Dev/Licensing
 
@@ -1741,7 +1747,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Tue Aug 7 20:03:20 2018 +0800
 
     Merge pull request #2 from irykoon/master
-    
+
     Use correct hint on tor --verify command
 
 commit 2c0124e3f0c108f7deb8f6750abbace365b8d1b9
@@ -1794,7 +1800,7 @@ Author: irykoon <irykoon@gmail.com>
 Date:   Fri Apr 13 23:12:12 2018 +0000
 
     Use correct hint on tor --verify command
-    
+
     The reason for this change has been explained in http://phabricator.whonix.org/T787
 
 commit 812c30b3d62ed355e843eca0b80d71f78c3f7b67
@@ -1833,9 +1839,9 @@ Author: irykoon <irykoon@gmail.com>
 Date:   Sat Mar 31 20:24:28 2018 +0000
 
     Fix logic error and provide better error and debugging info
-    
+
     The code block below is not needed anymore because same function has been included in set_enabled():
-    
+
     ```
         exit_code="0"
         service_action="status"
@@ -1850,9 +1856,9 @@ Author: irykoon <irykoon@gmail.com>
 Date:   Sun Mar 25 16:31:26 2018 +0000
 
     Check the exit code of set_enabled()
-    
+
     Make sure the evaluation always be true, otherwise, "that command failing would trigger the error_handler and exit 1."
-    
+
     Also more user-friendly wording is used.
 
 commit 3c7f72abf0dc78600ad07becd5d357f53db18883
@@ -1866,33 +1872,33 @@ Author: irykoon <irykoon@gmail.com>
 Date:   Sat Mar 24 04:20:33 2018 +0000
 
     Use set_enabled() and set_disabled() instead
-    
+
     When parsing the torrc file, we switch from command line flavor to using the python functions availabed in anon_connection_wizard package.
-    
+
     The advantages are as follows:
-    
+
     1. Better consistency with anon_connection_wizard style parsing
-    
+
     While the command line flavor parsing comments (out) `#DisableNetwork 0`, anon_connection_wizard writes `DisableNetwork 0` or `DisableNetwork 1` to 40_connection_wizard.conf . This can be a issue when user uses both anon-connection-wizard and whonixsetup for at least once. Using the same implementation will aviod the inconsistency.
-    
+
     2. More robust in handling different cases
-    
+
     Considering the inconsistency descriped above, the command line flavor parsing was not robust enough. For example, it will assume the final value in anon_connection_wizard.conf is 0 right after it sees a `DisableNetwork 0` line. This will ignore the case where there is also a `DisableNetwork 1` line after it.
-    
+
     3. Lower maintanance cost
-    
+
     It allows us to only maintance one piece of code.
-    
+
     4. Simplified the logic in the bash script
-    
+
     The disadvantages are as follows:
-    
+
     1. anon-connection-wizard becomes a dependency of whonixsetup now
-    
+
     However, since whonixsetup should be installed in both Whonox-Gateway and Whonox-Workstation, but anon-connection-wizard should NOT be installed in Whonix-Worksatation, we cannot claim the dependency in Debian control.
-    
+
     2. Less error info in CLI
-    
+
     The error happens in the python function may not be well-reflected to the CLI which is seen by user. For example, user may only know the attempt to enable Tor failed, but does not know if the problem is because of the missing of anon_connection_wizard package or anything else.
 
 commit 90f9e52fdc3fd2d558cef2bc8c9391295988b124
@@ -1984,7 +1990,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Jan 12 18:10:03 2018 +0000
 
     sudoers asterix hardening
-    
+
     removed unused options --cli and --x
 
 commit 4a6295c7033b8c78555fc5bdf7aa758875d6d07f
@@ -2010,7 +2016,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Tue Feb 21 22:27:52 2017 +0000
 
     use systemctl --no-pager to prevent blocking due to systemctl interactivity
-    
+
     https://phabricator.whonix.org/T637
 
 commit 57e04188fee476addae3afe8a610e32036731491
@@ -2024,7 +2030,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Fri Feb 10 15:47:56 2017 +0000
 
     remove faketime from Build-Depends:
-    
+
     since no longer used for reproducible builds
 
 commit 72bdc72a8304786cd6bed5ffec93eff123da170e
@@ -2068,7 +2074,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Tue Aug 30 21:18:01 2016 +0000
 
     sudo --non-interactive
-    
+
     https://phabricator.whonix.org/T549
 
 commit c1c43fcd7359c22912a72219ee9fd42886fc8738
@@ -2076,7 +2082,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Thu Jun 2 11:53:48 2016 +0000
 
     do not use tput if variable TERM is empty
-    
+
     https://phabricator.whonix.org/T505
 
 commit 894513a505c53eeada02bbb56f11f31151334a8d
@@ -2114,7 +2120,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sun Dec 27 13:10:28 2015 +0000
 
     no longer auto run whonix_repository cli tool from whonixsetup cli version
-    
+
     because it's cli gui feature was removed. Suggest to run whonix_repository
     manually.
 
@@ -2123,7 +2129,7 @@ Author: Patrick Schleizer <adrelanos@riseup.net>
 Date:   Sat Dec 19 20:21:04 2015 +0100
 
     update path from /tmp/rads to /var/run/rads as it was changed in rads
-    
+
     https://github.com/Whonix/rads/commit/76f26d2650f70ad6e5ce01bb436f0e0621241e03
 
 commit d4d8761cbdea3987ba2c02517c89405e799cf2a9
