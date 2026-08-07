@@ -3,12 +3,19 @@
 ## Copyright (C) 2012 - 2025 ENCRYPTED SUPPORT LLC <adrelanos@whonix.org>
 ## See the file COPYING for copying conditions.
 
+set -o errexit
+set -o nounset
+set -o pipefail
+set -o errtrace
+shopt -s inherit_errexit
+shopt -s shift_verbose
+
 source "/usr/libexec/setup-dist/shared"
 
 rejected_legal() {
    MSG="
 Because the agreements have been declined, you are prohibited from using this software."
-   dialog_wrapper --title "setup-dist - ERROR!" --msgbox "$MSG" 640 480
+   dialog_wrapper --title "setup-dist - ERROR!" --msgbox "${MSG}" 640 480
    exit 1
 }
 
@@ -53,11 +60,11 @@ else
     MSG+=" /usr/share/whonix/WHONIX_BINARY_LICENSE_AGREEMENT or online here: https://www.whonix.org/wiki/Whonix:Copyrights"
 fi
 
-dialog_wrapper --title "$TITLE" --defaultno --yes-label "Understood / Verstanden" --no-label "Not understood / Nicht verstanden" --yesno "$MSG" 640 480
+dialog_wrapper --title "${TITLE}" --defaultno --yes-label "Understood / Verstanden" --no-label "Not understood / Nicht verstanden" --yesno "${MSG}" 640 480
 
 ret="$?"
 
-if [ "$ret" = "1" ]; then
+if [ "${ret}" = "1" ]; then
    rejected_legal
 fi
 
@@ -108,10 +115,10 @@ Program, unless a warranty or assumption of liability accompanies a
 copy of the Program in return for a fee.
 "
 
-dialog_wrapper --title "$TITLE" --defaultno --yes-label "Understood / Verstanden" --no-label "Not understood / Nicht verstanden" --yesno "$MSG" 640 480
+dialog_wrapper --title "${TITLE}" --defaultno --yes-label "Understood / Verstanden" --no-label "Not understood / Nicht verstanden" --yesno "${MSG}" 640 480
 
 ret="$?"
 
-if [ "$ret" = "1" ]; then
+if [ "${ret}" = "1" ]; then
    rejected_legal
 fi

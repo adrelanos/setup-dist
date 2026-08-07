@@ -13,15 +13,20 @@
 ## that /bin/bash's features can be used.
 
 #set -x
-set -e
+set -o errexit
+set -o nounset
+set -o pipefail
+set -o errtrace
+shopt -s inherit_errexit
+shopt -s shift_verbose
 set -o errtrace
 set -o pipefail
 
 source "/usr/libexec/helper-scripts/get_colors.sh"
 
 error_handler_setup() {
-   echo "[${red}${bold}ERROR${nocolor}] [setup-dist] \
-ret: $? | BASH_COMMAND: $BASH_COMMAND | Please report this bug!"
+   printf '%s\n' "[${red}${bold}ERROR${nocolor}] [setup-dist] \
+ret: $? | BASH_COMMAND: ${BASH_COMMAND} | Please report this bug!"
 }
 
 trap "error_handler_setup" ERR
@@ -92,7 +97,7 @@ in use."
    sleep 5 &
    wait "$!" || true
 
-   echo "[${green}INFO${nocolor}] [setup-dist] Starting setup-dist..."
+   printf '%s\n' "[${green}INFO${nocolor}] [setup-dist] Starting setup-dist..."
 
    sleep 5 &
    wait "$!" || true
