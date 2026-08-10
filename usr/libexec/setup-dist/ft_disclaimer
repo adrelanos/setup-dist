@@ -60,9 +60,8 @@ else
     MSG+=" /usr/share/whonix/WHONIX_BINARY_LICENSE_AGREEMENT or online here: https://www.whonix.org/wiki/Whonix:Copyrights"
 fi
 
-dialog_wrapper --title "${TITLE}" --defaultno --yes-label "Understood / Verstanden" --no-label "Not understood / Nicht verstanden" --yesno "${MSG}" 640 480
-
-ret="$?"
+ret=0
+dialog_wrapper --title "${TITLE}" --defaultno --yes-label "Understood / Verstanden" --no-label "Not understood / Nicht verstanden" --yesno "${MSG}" 640 480 || ret="$?"
 
 if [ "${ret}" = "1" ]; then
    rejected_legal
@@ -115,9 +114,8 @@ Program, unless a warranty or assumption of liability accompanies a
 copy of the Program in return for a fee.
 "
 
-dialog_wrapper --title "${TITLE}" --defaultno --yes-label "Understood / Verstanden" --no-label "Not understood / Nicht verstanden" --yesno "${MSG}" 640 480
-
-ret="$?"
+ret=0
+dialog_wrapper --title "${TITLE}" --defaultno --yes-label "Understood / Verstanden" --no-label "Not understood / Nicht verstanden" --yesno "${MSG}" 640 480 || ret="$?"
 
 if [ "${ret}" = "1" ]; then
    rejected_legal
