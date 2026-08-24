@@ -4,6 +4,13 @@
 ## See the file COPYING for copying conditions.
 
 ## Close stdin so setup-dist will run non-interactive.
+set -o errexit
+set -o nounset
+set -o pipefail
+set -o errtrace
+shopt -s inherit_errexit
+shopt -s shift_verbose
+
 exec 0<&-
 
 setup-dist "$@"
