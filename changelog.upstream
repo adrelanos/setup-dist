@@ -1,3 +1,173 @@
+commit ff0a679090a9fe61935c75a91f92c8b2def5e58a
+Merge: 8b759a3 d2f99d8
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Mon Aug 24 03:06:30 2026 -0400
+
+    Merge remote-tracking branch 'refs/remotes/org-ai-assisted/ai'
+
+commit d2f99d8ce884252c74402911e0776046533c31f9
+Author: claude (dev182 e09ec5cf-4ebf-4e1b-88e5-55fbac6ef1d3) <noreply@anthropic.com>
+Date:   Mon Aug 10 14:31:01 2026 -0400
+
+    ft_disclaimer: reject the disclaimer on any non-Understood result
+
+    A dialog Esc/close returns 255, which the '= 1' check let fall through to
+    acceptance -- a fail-open on a legal disclaimer. Treat only Understood (0) as
+    acceptance; any other status (No, Esc) rejects. Both disclaimer prompts.
+
+    Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+commit 2ad8f0db45d8f64ac51ec60aa8d6db6fee97ec67
+Author: claude (dev182 e09ec5cf-4ebf-4e1b-88e5-55fbac6ef1d3) <noreply@anthropic.com>
+Date:   Mon Aug 10 13:50:39 2026 -0400
+
+    Guard dialog/systemcheck exit-code capture under errexit and nounset
+
+    ft_disclaimer is a shipped standalone executable on PATH. Under errexit a
+    non-"yes" dialog_wrapper answer aborts the script before "ret=$?" runs, so
+    the rejection path never fires. Capture the status with "ret=0" plus a
+    "|| ret=$?" guard, matching this repo's own idiom.
+
+    ft_m_end: gui_option_maybe was set only on the setup-wizard path, so the
+    direct-interactive path read it unset and aborted under nounset. A quoted
+    string also passed "--gui --cli" as one argument. Use an array initialized
+    empty at the top of maybe_start_systemcheck, so both paths are safe and the
+    options expand as separate words.
+
+    Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
+
+commit 6fc0495ea66a0824e621f4ab6576ffdfa38b3220
+Author: claude (dev163 38f9745c-aed1-4fb4-b6ae-9899f20f8de2) <noreply@anthropic.com>
+Date:   Sat Aug 8 04:56:19 2026 -0400
+
+    CI: enrol in the pre-push static gate
+
+    This repo had no GitHub Actions workflow at all, so nothing verified its PRs on
+    the server side -- the only gate was ci-repro run locally.
+
+    The workflow file is the canonical consumer template, copied verbatim from
+    developer-meta-files/consumer-templates/.github/workflows/. It is managed: once
+    present, dm-packaging-helper-script's pkg_update_consumer_workflows keeps it in
+    sync, so it must not be hand-edited here.
+
+    Enrolment is deliberately a SEPARATE act from propagation: that function uses
+    pkg_update_if_exists, which only updates a workflow that already exists, and
+    pkg_install_dependabot_yml skips any repo with no .github/workflows/ directory.
+    Neither creates the first one. Hence this commit.
+
+    Scope: the repos this session actually changed and that ship shell code -- not
+    every repo lacking CI. Enrolling a repo consumes shared org-wide Actions
+    concurrency (20 jobs, the real limit; public repos are not minute-billed), so it
+    is worth spending where there is signal.
+
+    Verified BEFORE enrolling: 'ci-repro.sh --worktree' passes for this repo, so the
+    gate arrives green rather than turning someone's PR red on arrival.
+
+    NOTE, so it is not a surprise: creating .github/workflows/ makes this repo
+    eligible for the canonical .github/dependabot.yml on the next propagation pass,
+    which pkg_install_dependabot_yml installs into any repo that uses Actions.
+
+commit b4bf621d2660db5756fd984b2ae43b93ccda53da
+Author: claude (dev163 38f9745c-aed1-4fb4-b6ae-9899f20f8de2) <noreply@anthropic.com>
+Date:   Fri Aug 7 14:15:17 2026 -0400
+
+    setup-dist: R-010 strict mode for the entry point
+
+    usr/bin/setup-dist carried only 'set -o pipefail' plus an ERR trap.
+
+    No reachable nounset trap
+    -------------------------
+
+    enumerate-nounset finds none, so this is not a bug fix. It is worth saying
+    plainly rather than implying otherwise.
+
+    What it does change
+    -------------------
+
+    - Under nounset, an undefined colour variable is a hard ABORT, not a missing
+      escape sequence. check_passwords interpolates ${yellow} and ${nocolor}, which
+      come from get_colors.sh; that source now sits above the first use with a
+      comment saying why the order matters.
+    - 'command -v dialog' / 'command -v dialog_wrapper' -> has (R-090).
+    - 7 echo -> printf (R-034), braces, '--' before the basename and mkdir/touch
+      operands, and "${BASH_SOURCE[0]}" instead of the bare array reference.
+
+    Dead code kept, not deleted
+    ---------------------------
+
+    run_disclaimer_maybe returns 0 at the '## Disable disclaimer.' line, so the ten
+    lines below it are unreachable. They are the record of what the disclaimer flow
+    did, so they get '# shellcheck disable=SC2317' and a comment rather than
+    removal -- the same treatment as the short-circuit in dev_clearnet.
+
+    Testing
+    -------
+
+    Gate exit 0 in an ISOLATED checkout.
+
+    Differential old vs new, bwrap-isolated with stubbed shared / get_colors.sh /
+    has.sh / dialog_wrapper / leaprun:
+
+      5 same, 0 differing
+
+    Cases: workstation with all passwords set, workstation with a password ABSENT
+    (the only path that interpolates the colours), gateway, no distro marker, and
+    disclaimer already done.
+
+    Canary: removing the get_colors.sh source gives 4 same / 1 differing, and the
+    one that moves is the ABSENT case -- a nounset abort.
+
+    Two things the harness learned the hard way, both now guarded:
+    - Its first version mounted stubs under a read-only /usr/share, so bwrap failed
+      before exec and all five runs produced the SAME error and read as five passes.
+      The parents are tmpfs'd now, and a 'bwrap:' line in either variant fails the
+      case outright.
+    - Agreement alone is not evidence, so every case also names a string only a run
+      that reached the relevant code can emit; the 'shared' stub prints a sentinel
+      at source time so the case whose normal output is empty has one too.
+
+commit f69f4773a7e2d45039f8338458caad61752eb774
+Author: claude (dev163 38f9745c-aed1-4fb4-b6ae-9899f20f8de2) <noreply@anthropic.com>
+Date:   Fri Aug 7 08:52:08 2026 -0400
+
+    setup-dist: R-010 strict for 5 standalone scripts
+
+    usr/bin/setup-dist is deliberately NOT included -- see below.
+
+    A latent bug fixed, and it is the one intentional behaviour change here:
+    ft_m_end ends with 'exit "${exit_code}"', but maybe_start_systemcheck
+    returns early -- with 'return 0' -- when systemcheck is unavailable,
+    leaving exit_code unassigned. The old script then ran 'exit ""' and died
+    with "exit: : numeric argument required", exiting 2 on what is meant to be
+    the clean skip path. exit_code is now initialised to 0 before the call, so
+    that path exits 0 as the early return intends. Confirmed by the
+    differential: old exit 2 with the error text, new exit 0 and silent.
+
+    Another real nounset trap: ft_m_end read started_by_setup_wizard_dist,
+    which setup-wizard-dist exports when it launches this, so it is absent on a
+    direct run.
+
+    ft_m_end also keeps a no-has waiver: it CAPTURES the resolved path from
+    'command -v', which 'has' -- a boolean -- cannot do.
+
+    DEFERRED: usr/bin/setup-dist. Under errexit a 'return 1' from one of its
+    functions now aborts the whole script where it previously continued (old
+    exit 0, new exit 1, with the ERR handler printing "BASH_COMMAND: return 1").
+    That is a control-flow change in the package's main entry point and needs
+    its intended flow understood rather than a preamble bolted on.
+
+    Verified in an ISOLATED checkout (ci-repro.sh), gate exit 0. Sandbox
+    differential vs the pre-change scripts, output AND exit code: 4 identical,
+    plus the ft_m_end exit-code fix above.
+
+    Co-Authored-By: Claude Opus 5 (1M context) <noreply@anthropic.com>
+
+commit 8b759a387b51598a39a8b54258497eb8025771a4
+Author: Patrick Schleizer <adrelanos@whonix.org>
+Date:   Wed May 20 22:21:22 2026 +0000
+
+    bumped changelog version
+
 commit 2174306d925fcd0870799cec26280813c02c3993
 Author: Patrick Schleizer <adrelanos@whonix.org>
 Date:   Wed May 20 16:57:14 2026 -0400
